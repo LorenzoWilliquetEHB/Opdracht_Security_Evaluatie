@@ -59,3 +59,11 @@ En de andere 11 zijn ook low priority waarvan er een paar aangeeft dat de resour
 ![image](https://user-images.githubusercontent.com/64362709/183905229-e5681371-aea7-4f1c-8ee1-1b4a918eb8cc.png)
 
 # Verdere Evaluatie
+
+In verband met de opdracht rond security vereisten waren toch een bedreigingen aanwezig die eventueel kunnen plaatsvinden. Zoals ik dan getest heb met de tools Snyk en SonarQube kunnen we zien dat er toch een aantal bedreigingen zijn die konden optreden zoals een DoS attack, Injection, Cross-Site Scripting en blootleggen van credentials.
+
+De evaluatiecriteria in verband met wachtwoorden: In de code kon ik zien dat als men een user ging aanmaken er bepaalde zaken niet aanwezig waren zoals: wachtwoord minstens 8 karakters lang en een zeer lang wachtwoord kiezen van minstens 64 karakters. Bij verschillende inlog pogingen wordt geen tijdsinterval ingeschakeld waardoor men dus kan blijven proberen inloggen. Bij herhaalde mislukte pogingen wordt het account niet geblokkeerd. Er werden ook wachtwoorden gebruikt voor authenticatie maar deze wachtwoorden werden niet goed gehashed. Een goede oplossing hiervoor is om gebruik te maken van de Azure AD van school zodat men gebruik kan gaan maken van de MFA functie. Zo kan men bijvoorbeeld geen brute force attacks gaan uitvoeren.
+
+Als men bijvoorbeeld een aankoop is uitgevoerd zonder dat men dit wou kan een persoon dit ontkennen. Zorg er dus dan ook voor dat deze zaken monitoring bevatten en zorg voor een eventueel pdf document dat is uitgevoerd.
+Wat goed gedaan is in het systeem is dat men rollen is beginnen toekennen in het systeem en dat bepaalde sites hierdoor afgeschermd zijn als men eventueel geen access mag hebben tot een bepaalde link of actie.
+Aangezien het systeem bedoelt is voor de school kon men perfect de Azure AD van school gaan gebruiken want Azure beschikt over een tal van functies die zeer handig kunnen zijn voor je systeem. Zo presteert je systeem optimaal en is de veiligheid van je systeem goed gehandhaafd. 
