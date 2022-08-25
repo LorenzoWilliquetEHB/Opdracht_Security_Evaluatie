@@ -74,5 +74,47 @@ Als men bijvoorbeeld een aankoop is uitgevoerd zonder dat men dit wou kan een pe
 Wat goed gedaan is in het systeem is dat men rollen is beginnen toekennen in het systeem en dat bepaalde sites hierdoor afgeschermd zijn als men eventueel geen access mag hebben tot een bepaalde link of actie.
 Aangezien het systeem bedoelt is voor de school kon men perfect de Azure AD van school gaan gebruiken want Azure beschikt over een tal van functies die zeer handig kunnen zijn voor je systeem. Zo presteert je systeem optimaal en is de veiligheid van je systeem goed gehandhaafd.
 
-# Risico's die aangepakt en niet aangepakt zijn
+# Risico's die aangepakt en niet aangepakt zijn in het systeem
 
+## Spoofing
+Spoofing wordt niet echt aangepakt in het project men kan dus meerdere malen proberen inloggen in het systeem. Hierdoor ontstaan er brute force attacks op het systeem.
+### Hoe aan te pakken?
+Gebruikmaken van Azure AD Multi-Factor Authentication. Dit zorgt ervoor dat je meerdere verificatiemethoden kan gebruiken om te gaan inloggen in je webapp. Dus je kan voorzien dat er alleen ingelogd kan worden met een EhB account.
+
+## Tampering
+Met Snyk had ik 2 high severity meldingen waarbij Cross-Site Scripting attacks konden gebeuren. 
+### Hoe aan te pakken?
+Een oplossing voor die Cross-Site Scripting attacks zou zijn: 
+-	Zuiver gegevensinvoer in een HTTP-request voordat u het terugkaatst, zorg ervoor dat alle gegevens worden gevalideerd, gefilterd of ontsnapt voordat u iets terugstuurt naar de gebruiker, zoals de waarden van queryparameters tijdens zoekopdrachten.
+-	Converteer speciale tekens zoals ?, &, /, <, > en spaties naar hun respectievelijke HTML- of URL-gecodeerde equivalenten.
+-	Geef gebruikers de mogelijkheid om client-side scripts uit te schakelen.
+-	Ongeldige verzoeken omleiden.
+-	Detecteer gelijktijdige aanmeldingen, inclusief die van twee afzonderlijke IP-adressen, en maak die sessies ongeldig.
+-	Gebruik en handhaaf een Content Security Policy om alle functies uit te schakelen die kunnen worden gemanipuleerd voor een XSS-attack.
+-	Lees de documentatie voor een van de bibliotheken waarnaar in uw code wordt verwezen om te begrijpen welke elementen embedded HTML toestaan.
+
+Gebruikmaken van SQL Threat Detection binnen Azure. Dit zorgt ervoor dat het bedreigingen detecteert waardoor je erop kan reageren zodra die zich voordoen door beveiligingswaarschuwingen te geven over die afwijkende activiteiten. Encryptie van data in transit. Bij cross-site scripting ervoor zorgen dat je geen onbetrouwbare gegevens in uw html-invoer plaatst. Als u niet vertrouwde gegevens toch plaats in uw html zorg er dan voor dat ze encoded zijn binnen uw html. Vooraleer je ook niet vertrouwde data in een url query string plaatst zorg dan ook voor dat ze encode is in uw url.
+
+## Repudiation
+Dit is iets dat we kunnen aanvaarden binnen de webapplicatie, maar als men dit toch wil aanpakken dan kan dit zeker. De monitoring op Azure gebruiken als bepaalde zaken uitgevoerd worden. Non-Repudiation dus ervoor zorgen dat aankopen een signatuur bevat bv: een pdf met de aankoop en daarop de signatuur van beide personen zodat de aankoop wel degelijk gebeurd is.
+
+## Information Disclosure
+Rollen werden goed toegekend binnen de webapplicatie. Hardcoded credentials waren wel aanwezig binnen de applicatie waardoor dit wel voor problemen kan zorgen bv: iemand die toegang tot uw DB krijgt gaat misschien data verzamelen die hij/zij niet mag hebben. Data die verstuurd wordt over netwerk wordt niet geëncrypteerd.
+### Hoe aan te pakken?
+Zorg ervoor dat data die verstuurd wordt op het netwerk geëncrypteerd wordt. Zoveel mogelijk generieke foutmeldingen geven zodat aanvallers niet onnodige aanwijzingen ontdekken. Hardcoded credentials uit de toepassing halen. Debugging afsluiten zodat de aanvaller geen informatie kan zien van het gedrag van de webapp. Gebruikmaken van TLS.
+
+## Denial of Service
+Met SonarQube heb ik een DoS threat ontdekt binnenin het systeem. Men moet hier opletten dat men met die regex geen DoS aanval kan gaan creeëren.
+### Hoe aan te pakken?
+Gebruikmaken van de Azure DDos Protection. Deze functie zorgt ervoor dat continue monitoring is en automatische beperkingen van netwerkaanvallen.
+
+## Elevation of Privilege
+De webpagina's worden afgeschermd per rol en is aangepakt geweest. Een eventuele oplossing kan zijn om rollen te gaan toekennen aan bepaalde acties die een gebruiker mag uitvoeren. Azure AD Multi-Factor Authentication dit zorgt ervoor dat je meerdere verificatiemethoden kan gebruiken om te gaan inloggen in de webapp. Waardoor de ingelogde gebruikers hun rol gaan hebben (admin, cashier, loaner) door roles te gaan koppelen binnenin Azure AD.
+
+## Insiders
+Is ook een probleem die we kunnen aanvaarden binnen de webaplicatie. Als men dit toch wil gaan aanpakken kan men gebruikmaken van Microsoft Purview Insider Risk Management. Helpt om interne risico’s te minimaliseren door u in staat te stellen van kwaadaardige en opzettelijke activiteiten in uw organisatie op te sporen, te onderzoeken en erop te reageren. Zorg voor een Root User die het systeem opstart en eventuele andere admin zaken kan gaan uitvoeren.
+
+## Bot attacks
+Wordt niet aangepakt hierdoor kan een aanvaller van op het web gebruikmaken van geautomatiseerde web requests om een website, applicatie, API of eindgebruikers te manipuleren, te bedriegen of te verstoren.
+### Hoe aan te pakken?
+Azure Web Application Firewall service die een bescherming aanbiedt tegen webhackingtechnieken, zoals SQL injection en beveiligingsproblemen als site-overschrijdende scripts.
