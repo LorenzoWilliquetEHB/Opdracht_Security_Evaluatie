@@ -64,6 +64,15 @@ In verband met de opdracht rond security vereisten waren toch een bedreigingen a
 
 De evaluatiecriteria in verband met wachtwoorden: In de code kon ik zien dat als men een user ging aanmaken er bepaalde zaken niet aanwezig waren zoals: wachtwoord minstens 8 karakters lang en een zeer lang wachtwoord kiezen van minstens 64 karakters. Bij verschillende inlog pogingen wordt geen tijdsinterval ingeschakeld waardoor men dus kan blijven proberen inloggen. Bij herhaalde mislukte pogingen wordt het account niet geblokkeerd. Er werden ook wachtwoorden gebruikt voor authenticatie maar deze wachtwoorden werden niet goed gehashed. Een goede oplossing hiervoor is om gebruik te maken van de Azure AD van school zodat men gebruik kan gaan maken van de MFA functie. Zo kan men bijvoorbeeld geen brute force attacks gaan uitvoeren.
 
+De evaluatiecriteria in verband met HTTPS: Als de website local gehost wordt zorg er dan voor dat SSL geactiveerd wordt in XAMPP.
+
+De evaluatiecriteria in verband met beveiliging tegen typische web vulnerabilities: In register.php wordt er gebruikt gemaakt van een inline script dat uitgevoerd wordt. Voorzie een apart bestand voor je inline script en link dan de src van je script. In de register.php wordt ook een post request uitgevoerd waarbij er geen X-Content-Type-Options: nosniff in de header wordt geplaatst. Plaats X-Content-Type-Options: nosniff in je header om MIME sniffing tegen te gaan. Clickjacking zou zeker een probleem kunnen vormen ook al is het een interne webapp. Het kan zijn dat een insider iets plaatst in de code waarop de gebruiker eventueel op klikt waardoor ervoor gezorgd wordt dat er credentials worden vrijgegeven, een betaling die uitgevoerd wordt of malware dat gedownload wordt. Clickjacking kan je voorkomen door X-Frame-Options te gaan toevoegen in de HTTP header.
+
+De evaluatiecriteria in verband met de API: In de api wordt er in de header gebruikt gemaakt van application/json media type voor zowel request als response. Bij het uitvoeren van een request wordt de nodige message teruggestuurd aan de hand van de status van de response.
+
 Als men bijvoorbeeld een aankoop is uitgevoerd zonder dat men dit wou kan een persoon dit ontkennen. Zorg er dus dan ook voor dat deze zaken monitoring bevatten en zorg voor een eventueel pdf document dat is uitgevoerd.
 Wat goed gedaan is in het systeem is dat men rollen is beginnen toekennen in het systeem en dat bepaalde sites hierdoor afgeschermd zijn als men eventueel geen access mag hebben tot een bepaalde link of actie.
-Aangezien het systeem bedoelt is voor de school kon men perfect de Azure AD van school gaan gebruiken want Azure beschikt over een tal van functies die zeer handig kunnen zijn voor je systeem. Zo presteert je systeem optimaal en is de veiligheid van je systeem goed gehandhaafd. 
+Aangezien het systeem bedoelt is voor de school kon men perfect de Azure AD van school gaan gebruiken want Azure beschikt over een tal van functies die zeer handig kunnen zijn voor je systeem. Zo presteert je systeem optimaal en is de veiligheid van je systeem goed gehandhaafd.
+
+# Risico's die aangepakt en niet aangepakt zijn
+
